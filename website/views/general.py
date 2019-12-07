@@ -1,15 +1,16 @@
-from flask import Flask, render_template
-from .bo import twitter_thread
+from flask import Blueprint, render_template
 
-app = Flask(__name__)
+from website.bo import twitter_thread
+
+mod = Blueprint('general', __name__, url_prefix='/')
 
 
-@app.route('/')
+@mod.route('/')
 def home():
     return render_template('home.html', )
 
 
-@app.route('/tweet/<tweet_id>')
+@mod.route('/tweet/<tweet_id>')
 def thread(tweet_id):
     tweet = twitter_thread.get_tweet(tweet_id)
     tree = twitter_thread.build_tree(tweet)
