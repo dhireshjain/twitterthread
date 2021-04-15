@@ -1,0 +1,16 @@
+{% block body %}
+</br></br>
+
+<div class='rows' style="padding:10px;">
+    <div class='row is-full'><b>{{tree["username"]}}:</b> {{tree['text']}}</div>
+    {%- for child in tree['children'] recursive %}
+        <div class='row is-full' style="padding-left:{{child['level']*20}}px;">
+            <b>{{child['username']}}:</b> {{child['text']}}
+            {%- if child['children'] -%}
+                <ul class="submenu">{{ loop(child['children']) }}</ul>
+            {%- endif %}
+        </div>
+    {%- endfor %}
+</div>
+
+{% endblock %}
